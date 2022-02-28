@@ -10,9 +10,15 @@ public class SeleniumTest {
         Selenium.setUp();
     }
 
-    @Test
+    @Test(enabled = false, priority = 1)
     public void test() {
         Assert.assertEquals(Selenium.invalidLogIn(), "Вашиот обид е неуспешен! Ве молиме проверете го вашето корисничко име и лозинка и обидете се повторно.");
+    }
+
+    @Test(priority = 2)
+    public void test1() {
+        Selenium.logIn();
+        Assert.assertEquals(Selenium.invalidRequest(), "Ве молиме пополнете ги сите задолжителни полиња!");
     }
 
     @AfterClass

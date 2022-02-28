@@ -57,4 +57,14 @@ public class Selenium {
 
         return driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div[1]/div")).getText();
     }
+
+    public static String invalidRequest() {
+        WebElement createRequestBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[1]/ul/li[3]/a/span[2]"));
+        createRequestBtn.click();
+
+        WebElement submitRequestBtn = driver.findElement(By.xpath("//*[@id=\"newRequestForm\"]/div/div[13]/input"));
+        submitRequestBtn.click();
+
+        return driver.findElement(By.xpath("//*[@id=\"newRequestForm\"]/div/div[13]/div/p")).getText();
+    }
 }
