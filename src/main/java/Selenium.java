@@ -34,12 +34,6 @@ public class Selenium {
 
         WebElement logMeInBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div[2]/form/button"));
         logMeInBtn.click();
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public static String invalidLogIn() {

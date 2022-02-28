@@ -1,27 +1,25 @@
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class SeleniumTest {
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         Selenium.setUp();
     }
 
-    @Test(enabled = false, priority = 1)
-    public void test() {
+    @Test(priority = 1, description = "Login without username and password")
+    public void verifyUserCannotLogIn() {
         Assert.assertEquals(Selenium.invalidLogIn(), "Вашиот обид е неуспешен! Ве молиме проверете го вашето корисничко име и лозинка и обидете се повторно.");
     }
 
-    @Test(priority = 2)
-    public void test1() {
+    @Test(priority = 2, description = "Submit empty form")
+    public void verifyUserCannotCreateRequest() {
         Selenium.logIn();
         Assert.assertEquals(Selenium.invalidRequest(), "Ве молиме пополнете ги сите задолжителни полиња!");
     }
 
-    @AfterClass
+    @AfterMethod
     public void quit() {
         Selenium.quit();
     }
