@@ -85,7 +85,7 @@ public class Selenium {
         return driver.getCurrentUrl();
     }
 
-    public static void logOut(){
+    public static void logOut() {
         WebElement logOutBtn = driver.findElement(By.xpath("//*[@id=\"logout2\"]/span"));
         logOutBtn.click();
     }
@@ -282,7 +282,7 @@ public class Selenium {
         submitBtn.click();
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -524,7 +524,7 @@ public class Selenium {
                 submitRequestBtn2.click();
                 break;
         }
-        return driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/h2")).getText();
+        return driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/div/request-list-pagination/jhi-alert/div/div/div/div/pre")).getText();
     }
 
     public static void searchOffer() {

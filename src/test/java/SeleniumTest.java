@@ -27,9 +27,9 @@ public class SeleniumTest {
 
     @Test(priority = 40, description = "Create request form functionality")
     public void verifyCreateRequestForm() {
-        Assert.assertEquals(Selenium.newRequestForm(1), "Моите барања");
-        Assert.assertEquals(Selenium.newRequestForm(2), "Моите барања");
-        Assert.assertEquals(Selenium.newRequestForm(3), "Моите барања");
+        Assert.assertEquals(Selenium.newRequestForm(1), "Успешно е креирано ново барање");
+        Assert.assertEquals(Selenium.newRequestForm(2), "Успешно е креирано ново барање");
+        Assert.assertEquals(Selenium.newRequestForm(3), "Успешно е креирано ново барање");
     }
 
     @Test(priority = 50)
