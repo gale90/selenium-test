@@ -524,6 +524,11 @@ public class Selenium {
                 submitRequestBtn2.click();
                 break;
         }
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/div/request-list-pagination/jhi-alert/div/div/div/div/pre")).getText();
     }
 
