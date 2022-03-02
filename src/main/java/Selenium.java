@@ -15,6 +15,9 @@ public class Selenium {
 
     static String user = "gale" + System.currentTimeMillis() + "@test.com";
     static String password = "123456";
+    static String offer1Id = UUID.randomUUID().toString();
+    static String offer2Id = UUID.randomUUID().toString();
+    static String offer3Id = UUID.randomUUID().toString();
 
     static String userTransporter = "gale" + System.currentTimeMillis() + "@test.com";
     static String passwordTransporter = "123456";
@@ -85,9 +88,11 @@ public class Selenium {
         return driver.getCurrentUrl();
     }
 
-    public static void logOut() {
+    public static String logOut() {
         WebElement logOutBtn = driver.findElement(By.xpath("//*[@id=\"logout2\"]/span"));
         logOutBtn.click();
+
+        return driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/h1")).getText();
     }
 
     public static String registrationForm(int userType) {
@@ -298,7 +303,7 @@ public class Selenium {
                 requestBtn.click();
 
                 WebElement titleTxt = driver.findElement(By.xpath("//*[@id=\"newRequestForm\"]/div/div[2]/div[2]/input"));
-                titleTxt.sendKeys(UUID.randomUUID().toString());
+                titleTxt.sendKeys(offer1Id);
 
                 Select categoryDD = new Select(driver.findElement(By.xpath("//*[@id=\"field_y\"]")));
                 categoryDD.selectByIndex(1);
@@ -377,7 +382,7 @@ public class Selenium {
                 requestBtn1.click();
 
                 WebElement titleTxt1 = driver.findElement(By.xpath("//*[@id=\"newRequestForm\"]/div/div[2]/div[2]/input"));
-                titleTxt1.sendKeys(UUID.randomUUID().toString());
+                titleTxt1.sendKeys(offer2Id);
 
                 Select categoryDD1 = new Select(driver.findElement(By.xpath("//*[@id=\"field_y\"]")));
                 categoryDD1.selectByIndex(2);
@@ -456,7 +461,7 @@ public class Selenium {
                 requestBtn2.click();
 
                 WebElement titleTxt2 = driver.findElement(By.xpath("//*[@id=\"newRequestForm\"]/div/div[2]/div[2]/input"));
-                titleTxt2.sendKeys(UUID.randomUUID().toString());
+                titleTxt2.sendKeys(offer3Id);
 
                 Select categoryDD2 = new Select(driver.findElement(By.xpath("//*[@id=\"field_y\"]")));
                 categoryDD2.selectByIndex(9);
@@ -536,18 +541,18 @@ public class Selenium {
         WebElement fromAddressBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[1]/country-selector/div/div[1]/span"));
         fromAddressBtn.click();
         WebElement fromAddressTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[1]/country-selector/div/input[1]"));
-        fromAddressTxt.sendKeys("Serbia");
+        fromAddressTxt.sendKeys("Slovakia");
         fromAddressTxt.sendKeys(Keys.ENTER);
 
         WebElement toAddressBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[2]/country-selector/div/div[1]/span"));
         toAddressBtn.click();
         WebElement toAddressTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[2]/country-selector/div/input[1]"));
-        toAddressTxt.sendKeys("Macedonia");
+        toAddressTxt.sendKeys("Serbia");
         toAddressTxt.sendKeys(Keys.ENTER);
 
         WebElement insuranceDD = driver.findElement(By.xpath("//*[@id=\"field_y\"]"));
         Select selectCategoryDD = new Select(insuranceDD);
-        selectCategoryDD.selectByIndex(3);
+        selectCategoryDD.selectByIndex(10);
 
 
         WebElement searchBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[3]/a/span[2]"));
@@ -599,6 +604,23 @@ public class Selenium {
         submitOfferBtn.click();
 
         return driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/div[1]/div[5]/div/div/div/button[1]")).getText();
+    }
+
+    public static String acceptOffer() {
+        WebElement myOffersBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/div/request-list-pagination/request-list/div[2]/div[2]/table/tbody/tr[1]/td[1]/a"));
+        myOffersBtn.click();
+
+        WebElement moreBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/div[1]/div[6]/div[2]/div/div/div[2]/div/div[8]/a"));
+        moreBtn.click();
+
+        WebElement offerBtn = driver.findElement(By.xpath("//*[@id=\"offer0\"]"));
+        offerBtn.click();
+
+
+        WebElement acceptOfferBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/div[1]/div[6]/div[2]/div/div/div[2]/div/div[10]/div/div/div/div[1]/div[2]/div[6]/input"));
+        acceptOfferBtn.click();
+
+        return driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/div/request-list-pagination/request-list/div[2]/div[2]/table/tbody/tr/td[7]/div/span/span[4]")).getText();
     }
 
 }
