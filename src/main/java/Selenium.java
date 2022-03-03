@@ -1,7 +1,4 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -28,7 +25,7 @@ public class Selenium {
     public static void setUp() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver-98.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("http://18.156.17.83:9095/");
     }
@@ -67,7 +64,7 @@ public class Selenium {
         return driver.findElement(By.xpath("//*[@id=\"newRequestForm\"]/div/div[13]/div/p")).getText();
     }
 
-    //valid flow
+    //valid
     public static String logIn(String userOption) {
         WebElement logInBtn = driver.findElement(By.xpath("//*[@id=\"login\"]"));
         logInBtn.click();
@@ -80,6 +77,14 @@ public class Selenium {
                 usernameTxt.sendKeys(userIndividual);
 
                 passwordTxt.sendKeys(passwordIndividual);
+
+                logMeInBtn.click();
+                break;
+
+            case "company":
+                usernameTxt.sendKeys(userCompany);
+
+                passwordTxt.sendKeys(passwordCompany);
 
                 logMeInBtn.click();
                 break;
@@ -768,4 +773,44 @@ public class Selenium {
         return driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/div/request-list-pagination/jhi-alert/div/div/div/div/pre")).getText();
     }
 
+    //invalid
+    public static void closeLogInButton() {
+        WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
+        closeBtn.click();
+    }
+
+    public static String invalidLogIn(String initEmail, String initPass) {
+//        WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
+//        boolean isVisible = closeBtn.isDisplayed();
+//
+//        if (isVisible) {
+//            closeBtn.click();
+//        } else {
+//            System.out.println("Ciao adios");
+//        }
+
+    try {
+        WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
+        closeBtn.click();
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
+
+        WebElement logInBtn = driver.findElement(By.xpath("//*[@id=\"login\"]"));
+        logInBtn.click();
+
+        WebElement usernameTxt = driver.findElement(By.xpath("//*[@id=\"username\"]"));
+
+        WebElement passwordTxt = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+
+        WebElement logMeInBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div[2]/form/button"));
+
+        usernameTxt.sendKeys(initEmail);
+
+        passwordTxt.sendKeys(initPass);
+
+        logMeInBtn.click();
+
+        return driver.findElement(By.xpath("//div[@class='alert alert-danger']")).getText();
+    }
 }

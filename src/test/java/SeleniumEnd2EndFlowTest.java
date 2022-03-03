@@ -1,7 +1,7 @@
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class SeleniumTest {
+public class SeleniumEnd2EndFlowTest {
 
     @BeforeClass
     public void setUp() {
