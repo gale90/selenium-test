@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Selenium {
 
-
     private static WebDriver driver;
 
     static String userIndividual = "galeIndividual" + System.currentTimeMillis() + "@test.com";
@@ -146,7 +145,7 @@ public class Selenium {
                 WebElement registerCmpBtn = driver.findElement(By.xpath("/html/body/div[1]/nav/div[3]/ul/li[3]/a/span"));
                 registerCmpBtn.click();
 
-                for (int i = 0; i <= 1; i++) {
+                for (int i = 0; i <= 2; i++) {
                     try {
                         WebElement lookingForTransporterCmpBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[1]/button"));
                         lookingForTransporterCmpBtn.click();
@@ -749,14 +748,6 @@ public class Selenium {
 
     //invalid
     public static String invalidLogIn(String initEmail, String initPass) {
-//        WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
-//        boolean isVisible = closeBtn.isDisplayed();
-//
-//        if (isVisible) {
-//            closeBtn.click();
-//        } else {
-//            System.out.println("Ciao adios");
-//        }
 
         try {
             WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
@@ -786,7 +777,6 @@ public class Selenium {
     public static String invalidRegistrationAsIndividualForm(int option, String name, String lastName, String address, String city, String postCode, String country, String phoneNumber, String email, String password, String confirmPassword) {
         WebElement registerBtn = driver.findElement(By.xpath("/html/body/div[1]/nav/div[3]/ul/li[3]/a/span"));
         registerBtn.click();
-
 
         for (int i = 0; i <= 2; i++) {
             try {
@@ -871,6 +861,206 @@ public class Selenium {
             message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[14]/div/p")).getText();   //uncheck terms and conditions
         }
 
+
+        return message;
+    }
+
+    public static String invalidRegistrationAsCompanyForm(int option, String name, String lastName, String companyName, String address, String city, String postCode, String country, String taxNumber, String phoneNumber, String email, String password, String confirmPassword) {
+        WebElement registerCmpBtn = driver.findElement(By.xpath("/html/body/div[1]/nav/div[3]/ul/li[3]/a/span"));
+        registerCmpBtn.click();
+
+        for (int i = 0; i <= 2; i++) {
+            try {
+                WebElement lookingForTransporterCmpBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[1]/button"));
+                lookingForTransporterCmpBtn.click();
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        Select typeOfClientCmpDD = new Select(driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[1]/div[2]/select")));
+        typeOfClientCmpDD.selectByIndex(1);
+
+        WebElement nameCmpTxt = driver.findElement(By.xpath("//*[@id=\"firstName\"]"));
+        nameCmpTxt.sendKeys(name);
+
+        WebElement lastNameCmpTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[4]/div[2]/input"));
+        lastNameCmpTxt.sendKeys(lastName);
+
+        WebElement compNameTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[1]/div[2]/input"));
+        compNameTxt.sendKeys(companyName);
+
+        WebElement addressCmpTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[3]/div[2]/input"));
+        addressCmpTxt.sendKeys(address);
+
+        WebElement cityCmpTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[5]/div[2]/input"));
+        cityCmpTxt.sendKeys(city);
+
+        WebElement postalCodeCmpTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[7]/div[2]/input"));
+        postalCodeCmpTxt.sendKeys(postCode);
+
+        if (option != 8) {
+            WebElement countryCmpBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[9]/div[2]/country-selector/div/div[1]/span"));
+            countryCmpBtn.click();
+            WebElement countryCmpTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[9]/div[2]/country-selector/div/input[1]"));
+            countryCmpTxt.sendKeys(country);
+            countryCmpTxt.sendKeys(Keys.ENTER);
+        }
+
+        WebElement taxNmbrCmpTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[11]/div[2]/input"));
+        taxNmbrCmpTxt.sendKeys(taxNumber);
+
+        WebElement phoneNmbrCmpTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[12]/div[2]/input"));
+        phoneNmbrCmpTxt.sendKeys(phoneNumber);
+
+        WebElement emailCmpTxt = driver.findElement(By.xpath("//*[@id=\"email\"]"));
+        emailCmpTxt.sendKeys(email);
+
+        WebElement passCmpTxt = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+        passCmpTxt.sendKeys(password);
+
+        WebElement confirmPassCmpTxt = driver.findElement(By.xpath("//*[@id=\"confirmPassword\"]"));
+        confirmPassCmpTxt.sendKeys(confirmPassword);
+
+        if (option != 14) {
+            WebElement termsAndConditionsCmpCB = driver.findElement(By.xpath("//*[@id=\"acceptTerms\"]"));
+            termsAndConditionsCmpCB.click();
+        }
+
+        WebElement registerMeCmpBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[15]/input"));
+        registerMeCmpBtn.click();
+
+        String message = "";
+        if (option == 1) {
+            message = driver.findElement(By.xpath("//div[@class='has-error']")).getText();
+        } else if (option == 2) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[3]/div/p")).getText();  //empty first name
+        } else if (option == 3) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[5]/div/p")).getText();  //empty last name
+        } else if (option == 4) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[2]/div/p")).getText();   //empty company name
+        } else if (option == 5) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[4]/div/p")).getText();   //empty address
+        } else if (option == 6) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[6]/div/p")).getText();   //empty city
+        } else if (option == 7) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[8]/div/p")).getText();   //empty post code
+        } else if (option == 8) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[10]/div/p")).getText();  //empty country
+        } else if (option == 9) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            message = driver.getCurrentUrl();    //empty tax number
+        } else if (option == 10) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[13]/div/p")).getText(); //empty phone number
+        } else if (option == 11) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[8]/div/p[1]")).getText();   //empty email
+        } else if (option == 12) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[10]/div/p[1]")).getText();  //empty password
+        } else if (option == 13) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[12]/div/p[1]")).getText();  //empty confirm password
+        } else if (option == 14) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[14]/div/p")).getText();   //uncheck terms and conditions
+        }
+
+        return message;
+    }
+
+    public static String invalidRegistrationAsTransporterForm(int option, String name, String lastName, String companyName, String address, String city, String postCode, String country, String taxNumber, String phoneNumber, String email, String password, String confirmPassword) {
+        WebElement registerBtn = driver.findElement(By.xpath("/html/body/div[1]/nav/div[3]/ul/li[3]/a/span"));
+        registerBtn.click();
+
+        WebElement iAmTransporterBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/button"));
+        iAmTransporterBtn.click();
+
+        WebElement nameTransTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[1]/div[2]/input"));
+        nameTransTxt.sendKeys(name);
+
+        WebElement lastNameTransTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[3]/div[2]/input"));
+        lastNameTransTxt.sendKeys(lastName);
+
+        WebElement companyNameTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[5]/div[2]/input"));
+        companyNameTxt.sendKeys(companyName);
+
+        WebElement addressTransTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[7]/div[2]/input"));
+        addressTransTxt.sendKeys(address);
+
+        WebElement cityTransTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[9]/div[2]/input"));
+        cityTransTxt.sendKeys(city);
+
+        WebElement postalCodeTransTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[11]/div[2]/input"));
+        postalCodeTransTxt.sendKeys(postCode);
+
+        if (option != 8) {
+            WebElement countryTransBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[13]/div[2]/country-selector/div/div[1]/span"));
+            countryTransBtn.click();
+            WebElement countryTransTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[13]/div[2]/country-selector/div/input[1]"));
+            countryTransTxt.sendKeys(country);
+            countryTransTxt.sendKeys(Keys.ENTER);
+        }
+
+        WebElement taxNumberTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[15]/div[2]/input"));
+        taxNumberTxt.sendKeys(taxNumber);
+
+        WebElement phoneNumberTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[16]/div[2]/input"));
+        phoneNumberTxt.sendKeys(phoneNumber);
+
+        WebElement emailTransTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[2]/div[2]/input"));
+        emailTransTxt.sendKeys(email);
+
+        WebElement passTransTxt = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+        passTransTxt.sendKeys(password);
+
+        WebElement confirmPassTransTxt = driver.findElement(By.xpath("//*[@id=\"confirmPassword\"]"));
+        confirmPassTransTxt.sendKeys(confirmPassword);
+
+        if (option != 14) {
+            WebElement termsAndConditionsTransCB = driver.findElement(By.xpath("//*[@id=\"acceptTerms\"]"));
+            termsAndConditionsTransCB.click();
+        }
+
+        WebElement registerMeTransBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[10]/input"));
+        registerMeTransBtn.click();
+
+        String message = "";
+        if (option == 1) {
+            message = driver.findElement(By.xpath("//div[@class='has-error']")).getText();
+        } else if (option == 2) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[2]/div/p")).getText();  //empty first name
+        } else if (option == 3) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[4]/div/p")).getText();  //empty last name
+        } else if (option == 4) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[6]/div/p")).getText();   //empty company name
+        } else if (option == 5) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[8]/div/p")).getText();   //empty address
+        } else if (option == 6) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[10]/div/p")).getText();   //empty city
+        } else if (option == 7) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[12]/div/p")).getText();   //empty post code
+        } else if (option == 8) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[14]/div/p")).getText();  //empty country
+        } else if (option == 9) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            message = driver.getCurrentUrl();    //empty tax number
+        } else if (option == 10) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[1]/div[17]/div/p")).getText(); //empty phone number
+        } else if (option == 11) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[3]/div/p[1]")).getText();   //empty email
+        } else if (option == 12) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[5]/div/p[1]")).getText();  //empty password
+        } else if (option == 13) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[7]/div/p[1]")).getText();  //empty confirm password
+        } else if (option == 14) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/form/div[9]/div/p")).getText();   //uncheck terms and conditions
+        }
 
         return message;
     }
