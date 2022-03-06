@@ -1,6 +1,5 @@
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -9,11 +8,6 @@ public class SeleniumInvalidLogInTest {
     public void setUp() {
         Selenium.setUp();
     }
-
-//    @AfterMethod
-//    public void closeWindow(){
-//        Selenium.closeLogInButton();
-//    }
 
     @Test(priority = 1, description = "Empty Email and Password fields")
     public void invalidLogIn() {
@@ -29,6 +23,7 @@ public class SeleniumInvalidLogInTest {
     public void invalidLogIn2() {
         Assert.assertEquals(Selenium.invalidLogIn("petrovskidr@gmail.com", ""), "Вашиот обид е неуспешен! Ве молиме проверете го вашето корисничко име и лозинка и обидете се повторно.");
     }
+
 
     @AfterClass
     public void quit() {

@@ -38,32 +38,6 @@ public class Selenium {
         driver.get("http://18.156.17.83:9095/");
     }
 
-    public static String invalidLogIn() {
-        WebElement logInBtn = driver.findElement(By.xpath("//*[@id=\"login\"]/span[2]"));
-        logInBtn.click();
-
-        WebElement logMeInBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div[2]/form/button"));
-        logMeInBtn.click();
-
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div[1]/div")).getText();
-    }
-
-    public static String invalidRequest() {
-        WebElement createRequestBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[1]/ul/li[3]/a/span[2]"));
-        createRequestBtn.click();
-
-        WebElement submitRequestBtn = driver.findElement(By.xpath("//*[@id=\"newRequestForm\"]/div/div[13]/input"));
-        submitRequestBtn.click();
-
-        return driver.findElement(By.xpath("//*[@id=\"newRequestForm\"]/div/div[13]/div/p")).getText();
-    }
-
     //valid
     public static String logIn(String userOption) {
         WebElement logInBtn = driver.findElement(By.xpath("//*[@id=\"login\"]"));
@@ -774,11 +748,6 @@ public class Selenium {
     }
 
     //invalid
-    public static void closeLogInButton() {
-        WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
-        closeBtn.click();
-    }
-
     public static String invalidLogIn(String initEmail, String initPass) {
 //        WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
 //        boolean isVisible = closeBtn.isDisplayed();
@@ -789,12 +758,12 @@ public class Selenium {
 //            System.out.println("Ciao adios");
 //        }
 
-    try {
-        WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
-        closeBtn.click();
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-    }
+        try {
+            WebElement closeBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/button"));
+            closeBtn.click();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         WebElement logInBtn = driver.findElement(By.xpath("//*[@id=\"login\"]"));
         logInBtn.click();
@@ -812,5 +781,97 @@ public class Selenium {
         logMeInBtn.click();
 
         return driver.findElement(By.xpath("//div[@class='alert alert-danger']")).getText();
+    }
+
+    public static String invalidRegistrationAsIndividualForm(int option, String name, String lastName, String address, String city, String postCode, String country, String phoneNumber, String email, String password, String confirmPassword) {
+        WebElement registerBtn = driver.findElement(By.xpath("/html/body/div[1]/nav/div[3]/ul/li[3]/a/span"));
+        registerBtn.click();
+
+
+        for (int i = 0; i <= 2; i++) {
+            try {
+                WebElement lookingForTransporterBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[1]/button"));
+                lookingForTransporterBtn.click();
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        Select typeOfClientDD = new Select(driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[1]/div[2]/select")));
+        typeOfClientDD.selectByIndex(0);
+
+        WebElement nameTxt = driver.findElement(By.xpath("//*[@id=\"firstName\"]"));
+        nameTxt.sendKeys(name);
+
+        WebElement lastNameTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[4]/div[2]/input"));
+        lastNameTxt.sendKeys(lastName);
+
+        WebElement addressTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[1]/div[2]/input"));
+        addressTxt.sendKeys(address);
+
+        WebElement cityTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[3]/div[2]/input"));
+        cityTxt.sendKeys(city);
+
+        WebElement postalCodeTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[5]/div[2]/input"));
+        postalCodeTxt.sendKeys(postCode);
+
+        if (option != 7) {
+            WebElement countryBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[7]/div[2]/country-selector/div/div[1]/span"));
+            countryBtn.click();
+            WebElement countryTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[7]/div[2]/country-selector/div/input[1]"));
+            countryTxt.sendKeys(country);
+            countryTxt.sendKeys(Keys.ENTER);
+        }
+
+        WebElement phoneNmbrTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[9]/div[2]/input"));
+        phoneNmbrTxt.sendKeys(phoneNumber);
+
+        WebElement emailTxt = driver.findElement(By.xpath("//*[@id=\"email\"]"));
+        emailTxt.sendKeys(email);
+
+        WebElement passTxt = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+        passTxt.sendKeys(password);
+
+        WebElement confirmPassTxt = driver.findElement(By.xpath("//*[@id=\"confirmPassword\"]"));
+        confirmPassTxt.sendKeys(confirmPassword);
+
+        if (option != 12) {
+            WebElement termsAndConditionsCB = driver.findElement(By.xpath("//*[@id=\"acceptTerms\"]"));
+            termsAndConditionsCB.click();
+        }
+
+        WebElement registerMeBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[15]/input"));
+        registerMeBtn.click();
+
+        String message = "";
+        if (option == 1) {
+            message = driver.findElement(By.xpath("//div[@class='has-error']")).getText();
+        } else if (option == 2) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[3]/div/p")).getText();  //empty first name
+        } else if (option == 3) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[5]/div/p")).getText();  //empty last name
+        } else if (option == 4) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[2]/div/p")).getText();   //empty address
+        } else if (option == 5) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[4]/div/p")).getText();   //empty city
+        } else if (option == 6) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[6]/div/p")).getText();   //empty postal code
+        } else if (option == 7) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[8]/div/p")).getText();   //empty country
+        } else if (option == 8) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[6]/div[10]/div/p")).getText();   //empty phone number
+        } else if (option == 9) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[8]/div/p[1]")).getText();   //empty email
+        } else if (option == 10) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[10]/div/p[1]")).getText();   //empty password
+        } else if (option == 11) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[12]/div/p[1]")).getText();   //empty confirm password
+        } else if (option == 12) {
+            message = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[14]/div/p")).getText();   //uncheck terms and conditions
+        }
+
+
+        return message;
     }
 }
