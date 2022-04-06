@@ -24,7 +24,6 @@ public class SeleniumInvalidLogInTest {
         Assert.assertEquals(Selenium.invalidLogIn("petrovskidr@gmail.com", ""), "Вашиот обид е неуспешен! Ве молиме проверете го вашето корисничко име и лозинка и обидете се повторно.");
     }
 
-
     @AfterClass
     public void quit() {
         Selenium.quit();

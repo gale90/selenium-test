@@ -9,20 +9,20 @@ public class Selenium {
 
     private static WebDriver driver;
 
-    static String userIndividual = "galeIndividual" + System.currentTimeMillis() + "@test.com";
-    static String userCompany = "galeCompany" + System.currentTimeMillis() + "@test.com";
-    static String userTransporter = "galeTransporter" + System.currentTimeMillis() + "@test.com";
+    public static String userIndividual = "galeIndividual" + System.currentTimeMillis() + "@test.com";
+    public static String userCompany = "galeCompany" + System.currentTimeMillis() + "@test.com";
+    public static String userTransporter = "galeTransporter" + System.currentTimeMillis() + "@test.com";
 
-    static String passwordIndividual = "123456";
-    static String passwordCompany = "123456";
-    static String passwordTransporter = "123456";
+    public static String passwordIndividual = "123456";
+    public static String passwordCompany = "123456";
+    public static String passwordTransporter = "123456";
 
     public static String offer1Id = UUID.randomUUID().toString();
     public static String offer2Id = UUID.randomUUID().toString();
     public static String offer3Id = UUID.randomUUID().toString();
 
     public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver-98.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver-100.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -69,6 +69,11 @@ public class Selenium {
 
                 logMeInBtn.click();
                 break;
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return driver.getCurrentUrl();
     }
@@ -135,6 +140,7 @@ public class Selenium {
 
                 WebElement termsAndConditionsCB = driver.findElement(By.xpath("//*[@id=\"acceptTerms\"]"));
                 termsAndConditionsCB.click();
+
 
                 WebElement registerMeBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[15]/input"));
                 registerMeBtn.click();
@@ -527,14 +533,14 @@ public class Selenium {
         fromAddressBtn.click();
 
         WebElement fromAddressTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[1]/country-selector/div/input[1]"));
-        fromAddressTxt.sendKeys("Slovakia");
+        fromAddressTxt.sendKeys("Macedonia");
         fromAddressTxt.sendKeys(Keys.ENTER);
 
         WebElement toAddressBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[2]/country-selector/div/div[1]/span"));
         toAddressBtn.click();
 
         WebElement toAddressTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[2]/country-selector/div/input[1]"));
-        toAddressTxt.sendKeys("Serbia");
+        toAddressTxt.sendKeys("Macedonia");
         toAddressTxt.sendKeys(Keys.ENTER);
 
         WebElement insuranceDD = driver.findElement(By.xpath("//*[@id=\"field_y\"]"));

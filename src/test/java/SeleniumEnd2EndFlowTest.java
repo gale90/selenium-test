@@ -26,7 +26,7 @@ public class SeleniumEnd2EndFlowTest {
     @Test(priority = 20, description = "Log in as user form functionality")
     public void verifyLogInForm() {
         //For logging as user insert 'user', for logging as transporter insert 'transporter'.
-        Assert.assertEquals(Selenium.logIn("user"), "http://18.156.17.83:9095/account-type/register-provider/provider-successful-registration");
+        Assert.assertEquals(Selenium.logIn("user"), "http://18.156.17.83:9095/client/home");
     }
 
     @Test(priority = 30, description = "Send ticket form functionality")
@@ -52,7 +52,7 @@ public class SeleniumEnd2EndFlowTest {
     @Test(priority = 50, description = "Log in as transporter form functionality")
     public void verifyLogInAsTransporterForm() {
         Selenium.logOut();
-        Assert.assertEquals(Selenium.logIn("transporter"), "http://18.156.17.83:9095/");
+        Assert.assertEquals(Selenium.logIn("transporter"), "http://18.156.17.83:9095/provider/home");
     }
 
     @Test(priority = 60, description = "Offer search functionality")
