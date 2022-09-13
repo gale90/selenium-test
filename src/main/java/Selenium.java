@@ -9,24 +9,25 @@ public class Selenium {
 
     private static WebDriver driver;
 
-    public static String userIndividual = "galeIndividual" + System.currentTimeMillis() + "@test.com";
-    public static String userCompany = "galeCompany" + System.currentTimeMillis() + "@test.com";
-    public static String userTransporter = "galeTransporter" + System.currentTimeMillis() + "@test.com";
+    private static String userIndividual = "galeIndividual" + System.currentTimeMillis() + "@test.com";
+    private static String userCompany = "galeCompany" + System.currentTimeMillis() + "@test.com";
+    private static String userTransporter = "galeTransporter" + System.currentTimeMillis() + "@test.com";
 
-    public static String passwordIndividual = "123456";
-    public static String passwordCompany = "123456";
-    public static String passwordTransporter = "123456";
+    private static String passwordIndividual = "123456";
+    private static String passwordCompany = "123456";
+    private static String passwordTransporter = "123456";
 
     public static String offer1Id = UUID.randomUUID().toString();
     public static String offer2Id = UUID.randomUUID().toString();
     public static String offer3Id = UUID.randomUUID().toString();
 
     public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver-100.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver-104.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("http://18.156.17.83:9095/");
+        driver.navigate();
     }
 
     public static void quit() {
@@ -75,6 +76,7 @@ public class Selenium {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return driver.getCurrentUrl();
     }
 
@@ -104,6 +106,8 @@ public class Selenium {
 
                 Select typeOfClientDD = new Select(driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]/form/div[1]/div[2]/select")));
                 typeOfClientDD.selectByIndex(0);
+                //typeOfClientDD.selectByVisibleText("");
+
 
                 WebElement nameTxt = driver.findElement(By.xpath("//*[@id=\"firstName\"]"));
                 nameTxt.sendKeys("Dragan");
@@ -533,7 +537,7 @@ public class Selenium {
         fromAddressBtn.click();
 
         WebElement fromAddressTxt = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[1]/country-selector/div/input[1]"));
-        fromAddressTxt.sendKeys("Macedonia");
+        fromAddressTxt.sendKeys("Serbia");
         fromAddressTxt.sendKeys(Keys.ENTER);
 
         WebElement toAddressBtn = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div[2]/request-search-list/div[1]/div[2]/request-search/div/div/div[2]/div[1]/div/div[2]/country-selector/div/div[1]/span"));
